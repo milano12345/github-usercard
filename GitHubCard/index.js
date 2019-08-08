@@ -28,7 +28,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell','milano12345','fabpot','andrew', 'dan', 'nelsonic'];
 
 followersArray.forEach(item => {
   axios
