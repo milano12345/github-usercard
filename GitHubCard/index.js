@@ -1,3 +1,7 @@
+
+
+
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -24,7 +28,17 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+followersArray.forEach(item => {
+  axios
+    .get(`https://api.github.com/users/${item}`)
+    .then(res => {
+      cards.appendChild(createCard(res))
+      console.log(res)
+    })
+    .catch(err => console.log(err))
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +67,49 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const cards = document.querySelector('.cards')
+
+function createCard(res) {
+  const card = document.createElement('div');
+  const usrImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  const link = document.createElement('a');
+
+  card.classList.add('card');
+  usrImg.setAttribute('src', res.data.avatar_url);
+  link.setAttribute('src', res.data.url)
+  cardInfo.classList.add('card-info')
+  name.classList.add('name');
+  userName.classList.add('username')
+
+  card.appendChild(usrImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(link);
+
+  name.textContent = `${res.data.name}`
+  userName.textContent = `${res.data.login}`
+  location.textContent = `Location: ${res.data.location}`
+  followers.textContent = `Followers: ${res.data.followers}`
+  following.textContent = `Following: ${res.data.following}`
+  bio.textContent = `Bio: ${res.data.bio}`
+
+
+
+
+  return card;
+
+}
